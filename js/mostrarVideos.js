@@ -21,17 +21,21 @@ export default function constroiCardDeVideos(titulo, descricao, url, imagem) {
 }
 
 async function listaVideosNaTela() {
-  const listaApi = await conexaoApi.listaVideos();
-  listaApi.forEach((element) => {
-    listaDeVideos.appendChild(
-      constroiCardDeVideos(
-        element.titulo,
-        element.descricao,
-        element.url,
-        element.imagem
-      )
-    );
-  });
+  try {
+    const listaApi = await conexaoApi.listaVideos();
+    listaApi.forEach((element) => {
+      listaDeVideos.appendChild(
+        constroiCardDeVideos(
+          element.titulo,
+          element.descricao,
+          element.url,
+          element.imagem
+        )
+      );
+    });
+  } catch {
+    listaDeVideos.innerHTML = `<h2 class="mensagem__titulo">Não foi possível carregar os vídeos</h2> `;
+  }
 }
 
 listaVideosNaTela();

@@ -18,19 +18,26 @@ async function criaVideo(titulo, descricao, url, imagem) {
       imagem: imagem,
     }),
   });
+
+  if (!conexao.ok) {
+    throw new Error("Não foi possível enviar o vídeo!");
+  }
+
   const conexaoConvertida = await conexao.json();
   return conexaoConvertida;
 }
 
-async function buscaVideo (videoPesquisado){
-  const conexao = await fetch(`http://localhost:3000/videos?q=${videoPesquisado} `)
-  const conexaoConvertida = conexao.json()
+async function buscaVideo(videoPesquisado) {
+  const conexao = await fetch(
+    `http://localhost:3000/videos?q=${videoPesquisado} `
+  );
+  const conexaoConvertida = conexao.json();
 
-  return conexaoConvertida
+  return conexaoConvertida;
 }
 
 export const conexaoApi = {
   listaVideos,
   criaVideo,
-  buscaVideo
+  buscaVideo,
 };
